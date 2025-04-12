@@ -24,7 +24,7 @@ def post_detail(request, post_id):
         pub_date__lte=current_time,
         category__is_published=True
     )
-    return render(request, 'blog/detail.html', {'posts': post})
+    return render(request, 'blog/detail.html', {'post': post})
 
 
 def category_posts(request, category_slug):
