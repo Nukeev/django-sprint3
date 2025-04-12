@@ -43,7 +43,7 @@ class Post(models.Model):
     )
 
     class Meta:
-        verbose_name = 'публикации'
+        verbose_name = 'Публикации'
         verbose_name_plural = 'Публикации'
 
     def __str__(self):
@@ -71,7 +71,7 @@ class Category(models.Model):
     )
 
     class Meta:
-        verbose_name = 'категория'
+        verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
@@ -90,7 +90,7 @@ class Location(models.Model):
     )
 
     class Meta:
-        verbose_name = 'местоположение'
+        verbose_name = 'Местоположение'
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
