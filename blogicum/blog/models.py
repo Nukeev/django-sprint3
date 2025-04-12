@@ -9,7 +9,7 @@ class Post(models.Model):
     title = models.CharField(max_length=256, verbose_name='Заголовок')
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(
-        verbose_name='Дата и время публикация',
+        verbose_name='Дата и время публикации',
         help_text=(
             'Если установить дату и время в будущем — можно делать '
             'отложенные публикации.'
@@ -43,7 +43,7 @@ class Post(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Публикация'
+        verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
 
     def __str__(self):
@@ -71,7 +71,7 @@ class Category(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Категория'
+        verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
@@ -90,7 +90,7 @@ class Location(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Местоположение'
+        verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
