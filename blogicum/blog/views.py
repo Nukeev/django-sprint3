@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from .models import Post, Category
 
+
 def index(request):
     current_time = timezone.now()
     posts = Post.objects.filter(
@@ -12,6 +13,7 @@ def index(request):
         category__is_published=True
     ).order_by('-pub_date')[:5]
     return render(request, 'blog/index.html', {'posts': posts})
+
 
 def post_detail(request, post_id):
     current_time = timezone.now()
@@ -24,9 +26,14 @@ def post_detail(request, post_id):
     )
     return render(request, 'blog/detail.html', {'post': post})
 
+
 def category_posts(request, category_slug):
     current_time = timezone.now()
-    category = get_object_or_404(Category, slug=category_slug, is_published=True)
+    category = get_object_or_404(
+        Category,
+        slug=category_slug,
+        is_published=True
+    )
 
     posts = Post.objects.filter(
         category=category,
