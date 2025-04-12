@@ -1,48 +1,44 @@
-from django.shortcuts import get_object_or_404, render
+from django.db import models
 
-from django.utils import timezone
+from django.contrib.auth.models import User
 
-from .models import Post, Category
+class Post(models.Model):
+    title = models.CharField(max_length=256, verbose_name='Заголовок')
+    text = models.TextField(verbose_name='Текст')
+    pub_date = models.DateTimeField(verbose_name='Дата и публикация')
 
-
-def index(request):
-    current_time = timezone.now()
-    posts = Post.objects.filter(
-        pub_date__lte=current_time,
-        is_published=True,
-        category__is_published=True
-    ).order_by('-pub_date')[:5]
-    return render(request, 'blog/index.html', {'posts': posts})
-
-
-def post_detail(request, post_id):
-    current_time = timezone.now()
-    post = get_object_or_404(
-        Post.objects.select_related('category'),
-        pk=post_id,
-        is_published=True,
-        pub_date__lte=current_time,
-        category__is_published=True
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Автор публикации'
     )
-    return render(request, 'blog/detail.html', {'post': post})
-
-
-def category_posts(request, category_slug):
-    current_time = timezone.now()
-    category = get_object_or_404(
-        Category,
-        slug=category_slug,
-        is_published=True
+    
+    location = models.ForeignKey(
+        'Location',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name='Местоположение'
     )
-
-    posts = Post.objects.filter(
-        category=category,
-        is_published=True,
-        pub_date__lte=current_time
-    ).order_by('-pub_date')
-
-    return render(
-        request,
-        'blog/category.html',
-        {'category': category, 'posts': posts}
+    
+    category = models.ForeignKey(
+        'Category',
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='Категория'
     )
+    
+    is_published = models.BooleanField(
+        default=True,
+        verbose_name='Опубликовано',
+        help_text='Снимите галочку, чтобы скрыть публикацию.'
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Добавлено')
+
+    class Meta:
+        verbose_name = 'публикацию'
+        verbose_name_plural = 'Публикации'
+
+    def __str__(self):
+        return self.title
