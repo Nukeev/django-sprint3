@@ -19,7 +19,7 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='Автор публикации'
-    ) 
+    )
     location = models.ForeignKey(
         'Location',
         on_delete=models.SET_NULL,
@@ -66,7 +66,7 @@ class Category(models.Model):
         help_text='Снимите галочку, чтобы скрыть публикацию.'
     )
     created_at = models.DateTimeField(
-        auto_now_add=True, 
+        auto_now_add=True,
         verbose_name='Добавлено'
     )
 
