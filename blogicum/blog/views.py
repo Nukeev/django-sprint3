@@ -24,7 +24,7 @@ def post_detail(request, post_id):
         pub_date__lte=current_time,
         category__is_published=True
     )
-    return render(request, 'blog/detail.html', {'post_list': post})
+    return render(request, 'blog/detail.html', {'posts': post})
 
 
 def category_posts(request, category_slug):
@@ -44,5 +44,5 @@ def category_posts(request, category_slug):
     return render(
         request,
         'blog/category.html',
-        {'category': category, 'post_list': posts}
+        {'category': category, 'posts': posts}
     )
