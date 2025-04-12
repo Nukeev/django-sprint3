@@ -9,7 +9,7 @@ class Post(models.Model):
     title = models.CharField(max_length=256, verbose_name='Заголовок')
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(
-        verbose_name='Дата и публикация',
+        verbose_name='Дата и время публикация',
         help_text=(
             'Если установить дату и время в будущем — можно делать '
             'отложенные публикации.'
@@ -43,7 +43,7 @@ class Post(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Публикации'
+        verbose_name = 'Публикация'
         verbose_name_plural = 'Публикации'
 
     def __str__(self):
