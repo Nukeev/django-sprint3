@@ -7,12 +7,12 @@ from .models import Post, Category
 
 def index(request):
     current_time = timezone.now()
-    posts = Post.objects.filter(
+    post_list = Post.objects.filter(
         pub_date__lte=current_time,
         is_published=True,
         category__is_published=True
     ).order_by('-pub_date')[:5]
-    return render(request, 'blog/index.html', {'posts': posts})
+    return render(request, 'blog/index.html', {'post_list': post_list})
 
 
 def post_detail(request, post_id):
@@ -35,7 +35,7 @@ def category_posts(request, category_slug):
         is_published=True
     )
 
-    posts = Post.objects.filter(
+    post_list = Post.objects.filter(
         category=category,
         is_published=True,
         pub_date__lte=current_time
@@ -44,5 +44,5 @@ def category_posts(request, category_slug):
     return render(
         request,
         'blog/category.html',
-        {'category': category, 'posts': posts}
+        {'category': category, 'post_list': post_list}
     )
