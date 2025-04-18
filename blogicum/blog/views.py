@@ -5,15 +5,11 @@ from django.utils import timezone
 from .models import Post, Category
 
 
-def index(request):
-    current_time = timezone.now()
-    post_list = Post.objects.filter(
-        pub_date__lte=current_time,
-        is_published=True,
-        category__is_published=True
-    ).order_by('-pub_date')[:5]
-    return render(request, 'blog/index.html', {'post_list': post_list})
+POSTS_ON_INDEX_LIMIT = 5
 
+def index(request):
+    post_list = Post.objects.published()[:POSTS_ON_INDEX_LIMIT]
+    return render(request, 'blog/index.html', {'post_list': post_list})
 
 def post_detail(request, post_id):
     current_time = timezone.now()
