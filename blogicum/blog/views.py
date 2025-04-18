@@ -7,9 +7,11 @@ from .models import Post, Category
 
 POSTS_ON_INDEX_LIMIT = 5
 
+
 def index(request):
     post_list = Post.objects.published()[:POSTS_ON_INDEX_LIMIT]
     return render(request, 'blog/index.html', {'post_list': post_list})
+
 
 def post_detail(request, post_id):
     current_time = timezone.now()
